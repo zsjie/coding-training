@@ -63,3 +63,4 @@ function calculate2(s) {
   return stack.reduce((pre, cur) => pre + cur, 0);
 }
 
+console.log(calculate2('2*3+2'), '================')
