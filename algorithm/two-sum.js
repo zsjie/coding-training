@@ -18,16 +18,31 @@
 // 输入：nums = [3,3], target = 6
 // 输出：[0,1]
 
-function twoSum(nums, target) {
-    const preNums = {}
-    for (let i = 0; i < nums.length; i++) {
-        const curTarget = target - nums[i]
-        if (typeof preNums[curTarget] !== 'undefined') {
-            return [i, preNums[curTarget]]
+function twoSum(arr, target) {
+    const preResult = {}
+
+    for (let i = 0; i < arr.length; i++) {
+        const num = arr[i]
+        if (num > target) {
+            continue
         }
 
-        preNums[nums[i]] = i
-    }
+        // 计算当前数字和 target 相差多少
+        const rest = target - num 
 
-    throw new Error('Not Found')
+        // 从之前的纪录里查找有没有和差值相等的
+        // 如果有，则直接返回结果
+        if (preResult[rest] >= 0) {
+            return [preResult[rest], i]
+        }
+
+        // 如果没有，记录当前的数字到 map 中
+        preResult[num] = i
+    }
 }
+
+console.log(twoSum([2,7,11,15], 9))
+console.log(twoSum([3,2,4], 6))
+console.log(twoSum([3,3], 6))
+
+console.log(twoSum([3,4, 8, 1, 8], 4))
