@@ -11,33 +11,30 @@
  * 计算结果为： 1.5
  */
 
-function solution1(s) {
-  // 先把空格处理了
-  s = s.replace(/\s+/g, '')
-
-  const arr = []
-
-  // 总的思路是
+// 总的思路是
   // 遍历每一个字符，
-  // 如果遇到的是数字，先缓存起来，保证把一整个数字都处理完
-  // 如果遇到的时候符号，要看下具体符号是什么
-  // - 如果是 +，先存到数组中，最后一起计算
-  // - 如果是 -，先记录，等下一次遇到符号时，将当前数字存到数组中
-  // - 如果是 *，先记录，等下一次遇到符号时，将当前数字和上一个数字相乘
-  // - 如果是 /，先记录，等下一次遇到符号时，将当前数字和上一个数字相乘
+// 如果遇到的是数字，先缓存起来，保证把一整个数字都处理完
+// 如果遇到的时候符号，要看下具体符号是什么
+// - 如果是 +，先存到数组中，最后一起计算
+// - 如果是 -，先记录，等下一次遇到符号时，将当前数字存到数组中
+// - 如果是 *，先记录，等下一次遇到符号时，将当前数字和上一个数字相乘
+// - 如果是 /，先记录，等下一次遇到符号时，将当前数字和上一个数字相乘
+
+function solution1(s) {
+  s = s.replace(/\s+/g, '')
 
   let num = 0
   let sign = '+'
-
+  let arr = []
   for (let i = 0; i < s.length; i++) {
-    const str = s[i]
-    const strN = parseInt(str)
+    const strN = s[i]
+    const n = parseInt(strN)
 
-    if (!isNaN(strN)) {
-      num = num * 10 + strN
+    if (!isNaN(n)) {
+      num = num * 10 + n 
     }
 
-    if (isNaN(strN) || i === s.length - 1) {
+    if (isNaN(n) || i === s.length - 1) {
       if (sign === '+') {
         arr.push(num)
       } else if (sign === '-') {
@@ -48,8 +45,8 @@ function solution1(s) {
         arr.push(arr.pop() / num)
       }
 
+      sign = strN
       num = 0
-      sign = str
     }
   }
 
