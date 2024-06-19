@@ -18,6 +18,37 @@ function quickSort(nums) {
     return quickSort(left).concat([pivot], quickSort(right))
 }
 
+// 优化一下，实现原地快速排序
+function quickSortInPlace(nums, left = 0, right = nums.length) {
+    if (left < right) {
+        const pivotIndex = left
+        const partitionIndex = partition(nums, pivotIndex, left, right)
+
+        quickSortInPlace(nums, 0, partitionIndex)
+        quickSortInPlace(nums, partitionIndex + 1, right)
+    }
+
+    return nums
+}
+
+function partition(nums, pivot, left, right) {
+    const pivotValue = nums[pivot]
+    for (let i = left; i < right; i++) {
+        if (pivotValue < nums[i]) {
+            swap(nums, i, pivot)
+            pivot++
+        }
+    }
+
+    return pivot
+}
+
+function swap(arr, i, j) {
+    const tmp = arr[i]
+    arr[i] = arr[j]
+    arr[j] = tmp
+}
+
 const cases = [
     [4, 2, 1,12,],
     [3,1,4,1,5,9],
@@ -28,5 +59,5 @@ const cases = [
 // [2, 1, 4, 12]
 
 cases.forEach((item) => {
-    console.log(quickSort(item))
+    console.log(quickSortInPlace(item))
 })
