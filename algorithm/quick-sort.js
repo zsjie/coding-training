@@ -64,5 +64,43 @@ const cases = [
 // [2, 1, 4, 12]
 
 cases.forEach((item) => {
-    console.log(quickSortInPlace([...item]))
+    console.log(quickSortInPlaceLeft([...item]))
 })
+
+// 使用最左侧的元素作为基准元素
+function quickSortInPlaceLeft(nums, left = 0, right = nums.length - 1) {
+    if (left < right) {
+        const pivot = left
+        const partitionIndex = partitionLeft(nums, pivot, left, right)
+
+        quickSortInPlaceLeft(nums, left, partitionIndex - 1)
+        quickSortInPlaceLeft(nums, partitionIndex + 1, right)
+    }
+
+    return nums
+}
+
+
+function partitionLeft(nums, pivot, left, right) {
+    const pivotValue = nums[pivot]
+    let partitionIndex = left + 1
+    for (let i = left + 1; i <= right; i++) {
+        if (pivotValue < nums[i]) {
+            swap(nums, i, partitionIndex)
+            partitionIndex++
+        }
+    }
+
+    // 基准元素一直在分区的最左侧
+    // 所以要将它交换到正确位置
+    swap(nums, left, partitionIndex - 1)
+
+    return partitionIndex - 1
+}
+
+// [ 3, 1, 2, 4 ]
+
+// [ 3, 4, 1, 2 ] partitionIndex === 2, 
+// 
+
+
