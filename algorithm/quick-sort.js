@@ -19,12 +19,14 @@ function quickSort(nums) {
 }
 
 // 优化一下，实现原地快速排序
-function quickSortInPlace(nums, left = 0, right = nums.length) {
+let count = 0
+function quickSortInPlace(nums, left = 0, right = nums.length - 1) {
     if (left < right) {
-        const pivotIndex = left
+        const pivotIndex = right
         const partitionIndex = partition(nums, pivotIndex, left, right)
 
-        quickSortInPlace(nums, 0, partitionIndex)
+
+        quickSortInPlace(nums, left, partitionIndex - 1)
         quickSortInPlace(nums, partitionIndex + 1, right)
     }
 
@@ -33,14 +35,16 @@ function quickSortInPlace(nums, left = 0, right = nums.length) {
 
 function partition(nums, pivot, left, right) {
     const pivotValue = nums[pivot]
+    let partitionIndex = left
     for (let i = left; i < right; i++) {
         if (pivotValue < nums[i]) {
-            swap(nums, i, pivot)
-            pivot++
+            swap(nums, i, partitionIndex)
+            partitionIndex++
         }
     }
+    swap(nums, partitionIndex, right)
 
-    return pivot
+    return partitionIndex
 }
 
 function swap(arr, i, j) {
@@ -52,6 +56,7 @@ function swap(arr, i, j) {
 const cases = [
     [4, 2, 1,12,],
     [3,1,4,1,5,9],
+    [3,1,2,4]
 ]
 
 // [4, 2, 1, 12], 4
@@ -59,5 +64,5 @@ const cases = [
 // [2, 1, 4, 12]
 
 cases.forEach((item) => {
-    console.log(quickSortInPlace(item))
+    console.log(quickSortInPlace([...item]))
 })
