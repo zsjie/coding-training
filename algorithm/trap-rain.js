@@ -30,10 +30,31 @@ var trapRain = function(height) {
     return result
 };
 
+var trapRain2 = function(height) {
+    let result = 0
+    let leftMax = 0
+    let rightMax = 0
+    let left = 0
+    let right = height.length - 1
+    while (left < right) {
+        leftMax = Math.max(leftMax, height[left])
+        rightMax = Math.max(rightMax, height[right])
+        if (height[left] <height[right]) {
+            result += leftMax - height[left]
+            left++
+        } else {
+            result += rightMax - height[right]
+            right--
+        }
+    }
+
+    return result
+}
+
 const cases = [
     [0,1,0,2,1,0,1,3,2,1,2,1]
 ]
 
 cases.forEach(item => {
-    console.log(trapRain(item))
+    console.log(trapRain2(item))
 })
