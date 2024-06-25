@@ -39,6 +39,11 @@ var trapRain2 = function(height) {
     while (left < right) {
         leftMax = Math.max(leftMax, height[left])
         rightMax = Math.max(rightMax, height[right])
+
+        // 为什么要比较这两个值大大小
+        // 这实际上是在比较两边柱子的高低
+        // 如果左边的柱子比较低
+        // 那么当前位置的储水量取决于 leftMax
         if (height[left] <height[right]) {
             result += leftMax - height[left]
             left++
