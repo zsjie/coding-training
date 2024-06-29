@@ -33,6 +33,31 @@ var permute = function(nums) {
     return result
 };
 
+function permute1(nums) {
+    const result = []
+    const used = {}
+
+    function generate(tmp) {
+        if (tmp.length === nums.length) {
+            result.push(tmp.slice())
+            return
+        }
+
+        for (let n of nums) {
+            if (used[n]) continue
+            tmp.push(n)
+            used[n] = true
+            generate(tmp)
+            tmp.pop() // 因为是不断复用一个数组，所以依次清除选取的元素
+            used[n] = false
+        }
+    }
+
+    generate([])
+
+    return result
+}
+
 const cases = [
     [1,2,3],
     [1]
