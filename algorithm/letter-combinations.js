@@ -58,4 +58,42 @@ cases.forEach(item => console.log(letterCombinations(item)))
  * 2. 思考的过程也写下来，不要看着屏幕发呆
  */
 
+function solution2(digits) {
+    if (digits === '') {
+        return []
+    }
+
+    const map = {
+        1: [],
+        2: ['a', 'b', 'c'],
+        3: ['d', 'e', 'f'],
+        4: ['g', 'h', 'i'],
+        5: ['j', 'k', 'l'],
+        6: ['m', 'n', 'o'],
+        7: ['p', 'q', 'r', 's'],
+        8: ['t', 'u', 'v'],
+        9: ['w', 'x', 'y', 'z'],
+    }
+
+    const result = []
+
+    function backTracking(digits, index, route) {
+        if (index === digits.length) {
+            result.push(route.join())
+            return
+        }
+
+        let tmp = map[digits[index]]
+
+        for (let i = 0; i < tmp.length; i++) {
+            route.push(tmp[i])
+            backTracking(digits, index + 1, route)
+            route.pop()
+        }
+    }
+    backTracking(digits, 0, [])
+
+    return result
+}
+
 
