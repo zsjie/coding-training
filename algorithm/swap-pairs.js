@@ -5,7 +5,7 @@ const {
 } = require('./list-node')
 
 function swapPairs(head) {
-    return solution3(head)
+    return solution4(head)
 }
 
 function solution1(head) {
@@ -61,6 +61,28 @@ function solution3(head) {
     head.next = solution3(newHead.next)
     newHead.next = head
     return newHead
+}
+
+function solution4(head) {
+    const dummy = new ListNode(0, head)
+    let prev = dummy
+    let curr = prev.next
+
+    while (curr && curr.next) {
+        let node1 = curr
+        let node2 = curr.next
+        let next = curr.next.next
+
+        prev.next = node2
+        node2.next = node1
+        node1.next = next
+
+        prev = node1
+        printListNode(prev)
+        curr = next
+    }
+
+    return dummy.next
 }
 
 [
