@@ -13,7 +13,6 @@ var lengthOfLongestSubstring = function(s) {
         let ch = s[j]
         if (map.has(ch)) {
             i = Math.max(i, map.get(ch))
-            console.log('ch ==============', ch, i)
         }
         map.set(ch, j)
         res = Math.max(res, j - i)
@@ -22,4 +21,30 @@ var lengthOfLongestSubstring = function(s) {
     return res
 };
 
-console.log(lengthOfLongestSubstring('baab'))
+function solution1(s) {
+    const window = new Map()
+
+    let left = 0, right = 0, res = 0
+    while (right < s.length) {
+        let c = s[right]
+        right++
+
+        // 进行窗口内的数据更新
+        window.set(c, (window.get(c) || 0) + 1)
+
+        // 判断窗口是否需要收缩
+        while (window.get(c) > 1) {
+            const d = s[left]
+            console.log(window, d)
+            left++
+
+            window.set(d, window.get(d) - 1)
+        }
+        console.log(window)
+        res = Math.max(res, window.size)
+    }
+
+    return res
+}
+
+console.log(solution1('bacefgab'))
